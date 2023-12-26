@@ -25,7 +25,7 @@ async fn main() -> Result<(), std::io::Error> {
             .service(api::ttmp::get_vehicle_service)
     })
     .workers(1)
-    .bind(("0.0.0.0", 3000))?
+    .bind(("0.0.0.0", 30000))?
     .run()
     .await
 }
