@@ -23,6 +23,7 @@ async fn main() -> Result<(), std::io::Error> {
             .service(get_users)
             .service(update)
             .service(api::ttmp::get_vehicle_service)
+            .service(api::ttmp::get_channel)
     })
     .workers(1)
     .bind(("0.0.0.0", 30000))?
