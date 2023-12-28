@@ -9,7 +9,7 @@ pub async fn vehicle2service() -> Result<(i64, i64), sqlx::Error> {
     let service: Service = get_service().await?;
     Ok((vehicle.vehicle_id, service.service_id))
 }
-pub async fn retrieve_channel_id() -> Result<i64, sqlx::Error> {
-    let channel: Channel = get_channel_id().await?;
-    Ok(channel.channel_id)
+pub async fn retrieve_channel_id() -> Result<i32, sqlx::Error> {
+    let channel: i32 = get_channel_id().await?;
+    Ok(channel)
 }

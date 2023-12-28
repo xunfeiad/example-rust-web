@@ -14,7 +14,7 @@ pub struct Service {
 
 #[derive(Debug, Clone, sqlx::FromRow, Serialize, Deserialize)]
 pub struct Channel {
-    pub channel_id: i64,
+    pub channel_id: i32,
 }
 
 use crate::common::pool::{get_pool, PostgresqlPoll};
@@ -57,15 +57,15 @@ pub async fn get_service() -> Result<Service, sqlx::Error> {
     Ok(service)
 }
 
-pub async fn get_channel_id() -> Result<Channel, sqlx::Error> {
+pub async fn get_channel_id() -> Result<i32, sqlx::Error> {
     let pool = get_pool(PostgresqlPoll::new(MAX_CONNECTIONS, URL)).await?;
     let channel: Channel = sqlx::query_as(
         r#"select channel.id as channel_id
             from main.tire_channel channel
-            where channel._deleted = 0 and channel.status =0 limit 1
+            where channel.status =0 limit 1
         "#,
     )
     .fetch_one(&pool)
     .await?;
-    Ok(channel)
+    Ok(channel.channel_id)
 }
